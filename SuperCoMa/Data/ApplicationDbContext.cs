@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SuperCoMa.Models;
 
 namespace SuperCoMa.Data
 {
@@ -12,5 +13,6 @@ namespace SuperCoMa.Data
             : base(options)
         {
         }
+        public DbSet<SuperCoMa.Models.ProductsModel> ProductsModel { get; set; }
     }
 }
