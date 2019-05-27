@@ -7,6 +7,7 @@ namespace SuperCoMa.Models
 {
     public class ProductsModel
     {
+        public int Id { get; set; }
         public int ProductID { get; set; }
         public string EAN { get; set; }
         public string Title { get; set; }
