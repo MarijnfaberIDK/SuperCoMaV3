@@ -13,6 +13,6 @@ namespace SuperCoMa.Data
             : base(options)
         {
         }
-        public DbSet<SuperCoMa.Models.ProductsModel> ProductsModel { get; set; }
+        public DbSet<ProductsModel> ProductsModel { get; set; }
     }
 }
