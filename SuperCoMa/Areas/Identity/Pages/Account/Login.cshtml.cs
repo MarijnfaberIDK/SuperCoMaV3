@@ -38,13 +38,15 @@ namespace SuperCoMa.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
+            [Display(Name = "E-mailadres")]
             public string Email { get; set; }
 
             [Required]
+            [Display (Name = "Wachtwoord")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Onthoud mij?")]
             public bool RememberMe { get; set; }
         }
 
