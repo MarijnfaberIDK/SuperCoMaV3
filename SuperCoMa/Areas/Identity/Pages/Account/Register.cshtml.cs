@@ -39,12 +39,14 @@ namespace SuperCoMa.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            public int AdminId { get; set; }
+
             [Required]
-            [Display(Name = "Naam")]
+            [Display(Name = "Voornaam *")]
             public string FirstName { get; set; }
 
             [Required]
-            [Display(Name = "AchterNaam")]
+            [Display(Name = "Achternaam *")]
             public string LastName { get; set; }
 
             [Display(Name = "Tussenvoegsel")]
@@ -52,34 +54,35 @@ namespace SuperCoMa.Areas.Identity.Pages.Account
 
             [Required]
             [EmailAddress]
-            [Display(Name = "E-mailadres")]
+            [Display(Name = "E-mailadres *")]
             public string Email { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Wachtwoord")]
+            [Display(Name = "Wachtwoord *")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm wachtwoord")]
+            [Display(Name = "Confirm wachtwoord *")]
             [Compare("Password", ErrorMessage = "Dit wachtwoord komt niet overeen met het vorige wachtwoord.")]
             public string ConfirmPassword { get; set; }
 
             [Required]
-            [RegularExpression(@"{\A[1-9][0-9]{3}([A-RT-Z][A-Z]|[S][BCE-RT-Z])\z}", ErrorMessage = "Dit is geen geldige postcode!")]
+            [Display (Name = "Postcode *")]
+            //[RegularExpression(@"{\A[1-9][0-9]{3}([A-RT-Z][A-Z]|[S][BCE-RT-Z])\z}", ErrorMessage = "Dit is geen geldige postcode!")]
             public string Postcode { get; set; }
 
             [Required]
-            [Display(Name = "Straatnaam")]
+            [Display(Name = "Straatnaam *")]
             public string Streetname { get; set; }
 
             [Required]
-            [Display(Name = "Huisnummer")]
+            [Display(Name = "Huisnummer *")]
             public string HouseNumber { get; set; }
 
             [Required]
-            [Display(Name = "Stad")]
+            [Display(Name = "Stad *")]
             public string City { get; set; }
         }
 

@@ -1,7 +1,8 @@
-﻿@model SuperCoMa.Models.ProductsModel
+﻿@model SuperCoMa.Areas.Admin.Models.ProductsModel
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Details</h1>
@@ -85,6 +86,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Aanpassen</a> |
+    <a asp-action="Index">Terug naar overzicht</a>
 </div>
