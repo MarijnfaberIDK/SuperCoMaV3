@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SuperCoMa.Models
 {
-    public class DeliveryClass
+    public class DeliveryModel
     {
         public DateTime Date { get; set; }
         public string StartTime { get; set; }
