@@ -9,7 +9,7 @@ namespace SuperCoMa.Models
     {
         public int CategoryId { get; set; }
         public string Name { get; set; } //subcategory
-        //public string Name { get; set; } //subsubcategory
+        //public string SubCategory { get; set; } //subsubcategory
         //nog toevoegen: Product-Categories
     }
 }
