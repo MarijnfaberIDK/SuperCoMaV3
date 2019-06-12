@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SuperCoMa.Models
 {
-    public class CategoriesClass
+    public class CategoriesModel
     {
         public int CategoryId { get; set; }
         public string Name { get; set; } //subcategory

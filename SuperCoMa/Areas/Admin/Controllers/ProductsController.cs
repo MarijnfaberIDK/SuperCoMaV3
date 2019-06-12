@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SuperCoMa.Areas.Admin.Models;
 using SuperCoMa.Data;
-using SuperCoMa.Models;
 
-namespace SuperCoMa.Controllers
+namespace SuperCoMa.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,13 +20,13 @@ namespace SuperCoMa.Controllers
             _context = context;
         }
 
-        // GET: Products
+        // GET: Admin/Products
         public async Task<IActionResult> Index()
         {
             return View(await _context.ProductsModel.ToListAsync());
         }
 
-        // GET: Products/Details/5
+        // GET: Admin/Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,13 +44,13 @@ namespace SuperCoMa.Controllers
             return View(productsModel);
         }
 
-        // GET: Products/Create
+        // GET: Admin/Products/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Admin/Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -65,7 +66,7 @@ namespace SuperCoMa.Controllers
             return View(productsModel);
         }
 
-        // GET: Products/Edit/5
+        // GET: Admin/Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,7 +82,7 @@ namespace SuperCoMa.Controllers
             return View(productsModel);
         }
 
-        // POST: Products/Edit/5
+        // POST: Admin/Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -116,7 +117,7 @@ namespace SuperCoMa.Controllers
             return View(productsModel);
         }
 
-        // GET: Products/Delete/5
+        // GET: Admin/Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +135,7 @@ namespace SuperCoMa.Controllers
             return View(productsModel);
         }
 
-        // POST: Products/Delete/5
+        // POST: Admin/Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

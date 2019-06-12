@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SuperCoMa.Models
 {
-    public class CartClass
+    public class CartModel
     {
         public int Id { get; set; }
         public int CartId { get; set; }
