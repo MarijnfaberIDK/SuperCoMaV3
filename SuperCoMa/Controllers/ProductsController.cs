@@ -10,6 +10,7 @@ using SuperCoMa.Models;
 
 namespace SuperCoMa.Controllers
 {
+            private string _baseUrl = "https://supermaco.starwave.nl/api/";
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,10 +20,32 @@ namespace SuperCoMa.Controllers
             _context = context;
         }
 
+        private static dynamic GetData(string path)
+        {
+
+            var request = WebRequest.Create(_baseUrl + path);
+            request.Method = "GET";
+            request.ContentType = "application/xml; charset=utf-8";
+    
+            using (var response = request.GetResponse())
+            {
+                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                {
+                    return streamReader.ReadToEnd();
+                }
+            }
+
+        }
+
+
         // GET: Products
         public async Task<IActionResult> Index()
         {
+
+            var test = GetData("products");
+
             return View(await _context.ProductsModel.ToListAsync());
+
         }
 
         // GET: Products/Details/5
