@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SuperCoMa.Models
 {
-    public class SalesClass
+    public class SalesModel
     {
         public int SaleId { get; set; }
         public string Title { get; set; }
