@@ -29,6 +29,14 @@ namespace SuperCoMa
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromDays(1);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -51,6 +59,7 @@ namespace SuperCoMa
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
+            app.UseSession();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

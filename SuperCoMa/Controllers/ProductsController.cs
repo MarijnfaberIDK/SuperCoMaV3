@@ -1,38 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using System.Xml;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SuperCoMa.Areas.Admin.Models;
 using SuperCoMa.Data;
+using SuperCoMa.Models;
 
-namespace SuperCoMa.Areas.Admin.Controllers
+namespace SuperCoMa.Controllers
 {
-    [Authorize (Roles = "Admin")]
-    [Area("Admin")]
-            private string _baseUrl = "https://supermaco.starwave.nl/api/";
+    
     public class ProductsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+       
+
+        private string _baseUrl;
+        ApplicationDbContext _context;
 
         public ProductsController(ApplicationDbContext context)
         {
             _context = context;
+            _baseUrl = "https://supermaco.starwave.nl/api/";
         }
 
-        private static dynamic GetData(string path)
+        private dynamic GetData(string path)
         {
 
             var request = WebRequest.Create(_baseUrl + path);
             request.Method = "GET";
             request.ContentType = "application/xml; charset=utf-8";
-    
+
             using (var response = request.GetResponse())
             {
-                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                using (var streamReader = new StreamReader(response.GetResponseStream ()))
                 {
                     return streamReader.ReadToEnd();
                 }
@@ -45,13 +51,54 @@ namespace SuperCoMa.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var test = GetData("products");
+            XmlDocument xml = new XmlDocument();
+            xml.Load("https://supermaco.starwave.nl/api/products");
 
+            XmlElement root = xml.DocumentElement;
+            XmlNodeList nodes = root.SelectNodes("Product");
+
+
+            foreach (XmlNode node in nodes)
+            {
+                var productId = Convert.ToInt32(node.Attributes["Id"].Value);
+                var productExists = _context.ProductsModel.Where(p => p.ProductID == productId).FirstOrDefault();
+
+                if(productExists == null)
+                {
+                    var product = new ProductsModel
+                    {
+                        ProductID = productId,
+                        EAN = node["EAN"].InnerText,
+                        Title = node["Title"].InnerText,
+                        Brand = node["Brand"].InnerText,
+                        ShortDescription = node["Shortdescription"].InnerText,
+                        FullDescription = node["Fulldescription"].InnerText,
+                        Image = node["Image"].InnerText,
+                        Weight = node["Weight"].InnerText,
+                        Price = node["Price"].InnerText,
+                        Category = node["Category"].InnerText,
+                        SubCategory = node["Subcategory"].InnerText,
+                        SubSubCategory = node["Subsubcategory"].InnerText
+                    };
+                    //Add Student object into Students DBset
+                    _context.ProductsModel.Add(product);
+                }
+
+                // call SaveChanges method to save student into database
+                _context.SaveChanges();
+            }
+
+
+
+
+            
+    
+            
             return View(await _context.ProductsModel.ToListAsync());
 
         }
 
-        // GET: Admin/Products/Details/5
+        // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -69,13 +116,13 @@ namespace SuperCoMa.Areas.Admin.Controllers
             return View(productsModel);
         }
 
-        // GET: Admin/Products/Create
+        // GET: Products/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Products/Create
+        // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -91,7 +138,7 @@ namespace SuperCoMa.Areas.Admin.Controllers
             return View(productsModel);
         }
 
-        // GET: Admin/Products/Edit/5
+        // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -107,7 +154,7 @@ namespace SuperCoMa.Areas.Admin.Controllers
             return View(productsModel);
         }
 
-        // POST: Admin/Products/Edit/5
+        // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -142,7 +189,7 @@ namespace SuperCoMa.Areas.Admin.Controllers
             return View(productsModel);
         }
 
-        // GET: Admin/Products/Delete/5
+        // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -160,7 +207,7 @@ namespace SuperCoMa.Areas.Admin.Controllers
             return View(productsModel);
         }
 
-        // POST: Admin/Products/Delete/5
+        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
