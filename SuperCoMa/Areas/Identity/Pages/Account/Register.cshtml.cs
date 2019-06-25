@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using SuperCoMa.Areas.Identity.Data;
 
 namespace SuperCoMa.Areas.Identity.Pages.Account
 {
@@ -42,18 +43,22 @@ namespace SuperCoMa.Areas.Identity.Pages.Account
             public int AdminId { get; set; }
 
             [Required]
+            [DataType(DataType.Text)]
             [Display(Name = "Voornaam *")]
             public string FirstName { get; set; }
 
             [Required]
+            [DataType(DataType.Text)]
             [Display(Name = "Achternaam *")]
             public string LastName { get; set; }
 
             [Display(Name = "Tussenvoegsel")]
+            [DataType(DataType.Text)]
             public string Infix { get; set; }
 
             [Required]
             [EmailAddress]
+            [DataType(DataType.Text)]
             [Display(Name = "E-mailadres *")]
             public string Email { get; set; }
 
@@ -69,19 +74,23 @@ namespace SuperCoMa.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             [Required]
-            [Display (Name = "Postcode *")]
+            [DataType(DataType.Text)]
+            [Display (Name = "Postalcode *")]
             //[RegularExpression(@"{\A[1-9][0-9]{3}([A-RT-Z][A-Z]|[S][BCE-RT-Z])\z}", ErrorMessage = "Dit is geen geldige postcode!")]
-            public string Postcode { get; set; }
+            public string Postalcode { get; set; }
 
             [Required]
+            [DataType(DataType.Text)]
             [Display(Name = "Straatnaam *")]
             public string Streetname { get; set; }
 
             [Required]
+            [DataType(DataType.Text)]
             [Display(Name = "Huisnummer *")]
             public string HouseNumber { get; set; }
 
             [Required]
+            [DataType(DataType.Text)]
             [Display(Name = "Stad *")]
             public string City { get; set; }
         }
@@ -96,7 +105,21 @@ namespace SuperCoMa.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                //var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+
+                var user = new User
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Infix = Input.Infix,
+                    Postalcode = Input.Postalcode,
+                    Streetname = Input.Streetname,
+                    HouseNumber = Input.HouseNumber,
+                    City = Input.City
+                };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
