@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SuperCoMa.Areas.Admin.Models;
 using SuperCoMa.Data;
 using SuperCoMa.Models;
 
@@ -74,8 +75,8 @@ namespace SuperCoMa.Controllers
                         ShortDescription = node["Shortdescription"].InnerText,
                         FullDescription = node["Fulldescription"].InnerText,
                         Image = node["Image"].InnerText,
-                        Weight = node["Weight"].InnerText,
-                        Price = node["Price"].InnerText,
+                        Weight = Double.Parse(node["Weight"].InnerText),
+                        Price = Double.Parse(node["Price"].InnerText),
                         Category = node["Category"].InnerText,
                         SubCategory = node["Subcategory"].InnerText,
                         SubSubCategory = node["Subsubcategory"].InnerText
