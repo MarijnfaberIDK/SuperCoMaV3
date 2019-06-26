@@ -1,0 +1,27 @@
+﻿Test Users
+
+---------------------------------------
+
+Role:			User/Klant
+
+Email/Username:	test@test.net
+
+Wachtwoord:		Test!23
+
+---------------------------------------
+
+Role:			Admin
+
+Email/Username:	test@admin.com
+
+Wachtwoord:		Admin!23
+
+---------------------------------------
+
+Role:			Webredacteur
+
+Email/Username:	hans@webredacteur.com
+
+Wachtwoord:		Webredacteur!23
+
+---------------------------------------

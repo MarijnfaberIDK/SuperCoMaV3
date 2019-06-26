@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using SuperCoMa.Data;
 
 namespace SuperCoMa.Areas.Admin.Controllers
 {
+    [Authorize (Roles = "Admin")]
     [Area("Admin")]
             private string _baseUrl = "https://supermaco.starwave.nl/api/";
     public class ProductsController : Controller

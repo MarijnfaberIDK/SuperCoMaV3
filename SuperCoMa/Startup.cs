@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using SuperCoMa.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SuperCoMa.Areas.Identity.Data;
 
 namespace SuperCoMa
 {
@@ -76,7 +77,7 @@ namespace SuperCoMa
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-            //Seed.SeedUsers(userManager, roleManager);
+            Seed.SeedUsers(userManager, roleManager);
 
             app.UseMvc(routes =>
             {
