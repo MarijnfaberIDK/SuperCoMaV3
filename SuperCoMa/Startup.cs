@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,9 +18,9 @@ using SuperCoMa.Areas.Identity.Data;
 
 namespace SuperCoMa
 {
-    public class Startup
+    public class ProductsController
     {
-        public Startup(IConfiguration configuration)
+        public ProductsController(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -55,6 +56,15 @@ namespace SuperCoMa
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
+        //contstructor for usermanager
+        ApplicationDbContext _context;
+        UserManager<IdentityUser> _userManager;
+
+            public ProductsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        {
+            _context = context;
+            _userManager = userManager;
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)

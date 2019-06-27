@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using SuperCoMa.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace SuperCoMa.Controllers
 {
@@ -309,13 +310,22 @@ namespace SuperCoMa.Controllers
             //    list.Add(civm);
             //}
         }
-        
+
         //Checkout
         [HttpGet]
         [Authorize]
         public IActionResult Checkout()
         {
+
+            //TODO: Order opslaan
+            string cartString = HttpContext.Session.GetString("cart");
+            List<CartItem> cart = new List<CartItem>();
+            if (cartString != null)
+            {
+                cart = JsonConvert.DeserializeObject<List<CartItem>>(cartString);
+            }
             return View();
+
         }
 
 
@@ -324,7 +334,57 @@ namespace SuperCoMa.Controllers
         [Authorize]
         public IActionResult Checkout(CheckoutViewModel cvm)
         {
-            //TODO: Order opslaan
+
+            
+            string cartString = HttpContext.Session.GetString("cart");
+            List<CartItem> cart = new List<CartItem>();
+            if (cartString != null)
+            {
+                cart = JsonConvert.DeserializeObject<List<CartItem>>(cartString);
+            }
+
+            Order order = new Order();
+            order.Street = cvm.Street;
+            order.HouseNumber = cvm.HouseNumber;
+            order.Postalcode = cvm.Postalcode;
+            order.City = cvm.City;
+            order.OrderDate = DateTime.Now;
+
+            foreach (CartItem ci in cart)
+            {
+                CartItemViewModel civm = new CartItemViewModel();
+                civm.Amount = ci.Amount;
+                civm.ProductId = ci.ProductId;
+
+                ProductsModel p = _context.ProductsModel.Find(ci.ProductId);
+                civm.Name = p.Title;
+                civm.Price = p.Price;
+                civm.ShortDescription = p.ShortDescription;
+                civm.Category = p.Category;
+
+                //list.Add(civm); list add werkt niet want hij kent list niet
+            }
+
+            IdentityUser user = _userManager.GetUserAsync(HttpContext.User).Result;
+            order.Customer = user;
+
+            List<OrderLine> orderLines = (from ProductsModel in _context.ProductsModel
+                                          join CartItem in cart on ProductsModel.Id equals CartItem.ProductId
+                                          select new OrderLine
+                                          {
+                                              ProductId = CartItem.ProductId,
+                                              Amount = CartItem.Amount,
+                                              Price = ProductsModel.Price,
+                                              Product = ProductsModel
+                                          }).ToList();
+
+            order.OrderLines = orderLines;
+
+            _context.Order.Add(order);
+            _context.SaveChanges();
+
+
+
             return View("CheckoutConfirmed");
         }
     }

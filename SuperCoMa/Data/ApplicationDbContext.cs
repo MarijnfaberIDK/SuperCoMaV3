@@ -17,7 +17,6 @@ namespace SuperCoMa.Data
         }
         public DbSet<ProductsModel> OrderLine { get; set; }
         public DbSet<ProductsModel> Order { get; set; }
-        public DbSet<ProductsModel> CheckOutViewModel { get; set; } //als er iets niet werkt moet deze weg
         public DbSet<ProductsModel> ProductsModel { get; set; }
     }
 }
