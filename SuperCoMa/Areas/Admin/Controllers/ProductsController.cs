@@ -13,25 +13,26 @@ using SuperCoMa.Data;
 
 namespace SuperCoMa.Areas.Admin.Controllers
 {
-    [Authorize (Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
-            private string _baseUrl = "https://supermaco.starwave.nl/api/";
+
     public class ProductsController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
+        private string _baseUrl;
+        ApplicationDbContext _context;
         public ProductsController(ApplicationDbContext context)
         {
             _context = context;
+            _baseUrl = "https://supermaco.starwave.nl/api/";
         }
 
-        private static dynamic GetData(string path)
+        private dynamic GetData(string path)
         {
 
             var request = WebRequest.Create(_baseUrl + path);
             request.Method = "GET";
             request.ContentType = "application/xml; charset=utf-8";
-    
+
             using (var response = request.GetResponse())
             {
                 using (var streamReader = new StreamReader(response.GetResponseStream()))

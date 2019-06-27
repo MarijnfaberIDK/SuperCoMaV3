@@ -24,37 +24,37 @@ namespace SuperCoMa.Areas.Identity.Data
                 roleManager.CreateAsync(role).Wait();
             }
 
-            //if (userManager.FindByEmailAsync("admin@admin.com").Result == null)
-            //{
-            //    IdentityUser user = new IdentityUser
-            //    {
-            //        UserName = "admin@admin.com",
-            //        Email = "admin@admin.com"
-            //    };
+            if (userManager.FindByEmailAsync("admin@admin.com").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "admin@admin.com",
+                    Email = "admin@admin.com"
+                };
 
-            //    IdentityResult result = userManager.CreateAsync(user, "Admin!23").Result;
+                IdentityResult result = userManager.CreateAsync(user, "Admin!23").Result;
 
-            //    if (result.Succeeded)
-            //    {
-            //        userManager.AddToRoleAsync(user, "Admin").Wait();
-            //    }
-            //}    
-            
-            //if (userManager.FindByEmailAsync("hans@webredacteur.com").Result == null)
-            //{
-            //    IdentityUser user = new IdentityUser
-            //    {
-            //        UserName = "hans@webredacteur.com",
-            //        Email = "hans@webredacteur.com"
-            //    };
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Admin").Wait();
+                }
+            }
 
-            //    IdentityResult result = userManager.CreateAsync(user, "Webredacteur!23").Result;
+            if (userManager.FindByEmailAsync("hans@webredacteur.com").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "hans@webredacteur.com",
+                    Email = "hans@webredacteur.com"
+                };
 
-            //    if (result.Succeeded)
-            //    {
-            //        userManager.AddToRoleAsync(user, "Webredacteur").Wait();
-            //    }
-            //}
+                IdentityResult result = userManager.CreateAsync(user, "Webredacteur!23").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Webredacteur").Wait();
+                }
+            }
         }
     }
 }

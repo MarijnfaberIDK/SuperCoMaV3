@@ -10,7 +10,7 @@ namespace SuperCoMa.Areas.Admin.Models
     {
         public int Id { get; set; }
 
-        public int ProductID { get; set; }
+        public int ProductId { get; set; }
 
         public string EAN { get; set; }
 

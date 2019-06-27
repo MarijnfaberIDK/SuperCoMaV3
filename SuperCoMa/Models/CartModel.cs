@@ -10,6 +10,5 @@ namespace SuperCoMa.Models
         public int Id { get; set; }
         public int CartId { get; set; }
         public string Status { get; set; }
-        //nog toevoegen: Product-Cart
     }
 }

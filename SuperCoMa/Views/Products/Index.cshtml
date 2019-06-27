@@ -2,14 +2,10 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Producten</h1>
+<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Nieuw product toevoegen</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -29,6 +25,9 @@
                 @Html.DisplayNameFor(model => model.ShortDescription)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.FullDescription)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Image)
             </th>
             <th>
@@ -39,6 +38,12 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubSubCategory)
             </th>
             <th></th>
         </tr>
@@ -62,21 +67,28 @@
                 @Html.DisplayFor(modelItem => item.ShortDescription)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.FullDescription)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Image)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Weight)
             </td>
             <td>
-                €@Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Aanpassen</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
+                @Html.DisplayFor(modelItem => item.SubCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubSubCategory)
+            </td>
+            <td>
+                <a class="btn btn-primary" asp-action="AddToCart" asp-route-id="@item.Id"> Toevoegen aan winkelwagen</a>
             </td>
         </tr>
 }
