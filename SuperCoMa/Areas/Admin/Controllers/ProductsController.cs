@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SuperCoMa.Areas.Admin.Models;
 using SuperCoMa.Data;
-
+//admin area controller
 namespace SuperCoMa.Areas.Admin.Controllers
 {
     //[Authorize(Roles = "Admin")]

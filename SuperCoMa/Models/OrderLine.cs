@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SuperCoMa.Areas.Admin.Models;
 using SuperCoMa.Models;
 
 namespace SuperCoMa.Models
@@ -13,7 +14,7 @@ namespace SuperCoMa.Models
         public double Price { get; set; } //prijs per product
 
 
-       // public Product Product { get; set; }
+        public ProductsModel Product { get; set; }
         public int ProductId { get; set; }
 
         public Order Order { get; set; }

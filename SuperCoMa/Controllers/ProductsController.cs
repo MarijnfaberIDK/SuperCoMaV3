@@ -271,10 +271,12 @@ namespace SuperCoMa.Controllers
                 cart = JsonConvert.DeserializeObject<List<CartItem>>(cartString);
             }
 
+
             //List<CartItemViewModel> list = new List<CartItemViewModel>(); //dit is ook crack niet gebruiken als de join moet werken.
 
             //TODO: list vullen
 
+            //Get cart from db with join
             List<CartItemViewModel> list = (from ProductsModel in _context.ProductsModel
                                             join CartItem in cart on ProductsModel.Id equals CartItem.ProductId
                                             select new CartItemViewModel
@@ -288,7 +290,9 @@ namespace SuperCoMa.Controllers
                                                 Category = ProductsModel.Category
                                             }).ToList();
 
-            //select query gegevens uit db halen niet goed maar het werkt iig
+            return View();
+
+            //Get cart from database with SELECT (crack af)
 
             //foreach (CartItem ci in cart)
             //{
@@ -300,11 +304,10 @@ namespace SuperCoMa.Controllers
             //    civm.Name = p.Title;
             //    civm.Price = p.Price;
             //    civm.ShortDescription = p.ShortDescription;
-            //    civm.Category = p.ShortDescription;
+            //    civm.Category = p.Category;
 
             //    list.Add(civm);
             //}
-            return View();
         }
         
         //Checkout
@@ -314,11 +317,15 @@ namespace SuperCoMa.Controllers
         {
             return View();
         }
+
+
+        //Checkout Post
         [HttpPost]
         [Authorize]
         public IActionResult Checkout(CheckoutViewModel cvm)
         {
-            return View();
+            //TODO: Order opslaan
+            return View("CheckoutConfirmed");
         }
     }
 }
