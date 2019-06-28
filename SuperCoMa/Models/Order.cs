@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SuperCoMa.Areas.Admin.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace SuperCoMa.Models
         public string CustomerId { get; set; }
 
         public List<OrderLine> OrderLines { get; set; }
+
+        public ProductsModel order { get; set; }
 
     }
 }
